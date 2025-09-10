@@ -25,7 +25,7 @@ int main() {
         tabuleiro[linhaH][colunaH + j] = 3;
     }
 
-    //COORDENADAS NAVIO VERTICAL
+    //NAVIO VERTICAL
     int linhaV = 5;
     int colunaV = 7;
 
@@ -33,7 +33,23 @@ int main() {
         tabuleiro[linhaV + i][colunaV] = 3;
     }
 
-    //CABEÇALHO COLUNA
+    //NAVIO DIAGONAL PRINCIPAL 
+    int linhaD1 = 0;
+    int colunaD1 = 0;
+
+    for (int k = 0; k < tamanhoNavio; k++) {
+        tabuleiro[linhaD1 + k][colunaD1 + k] = 3;
+    }
+
+    //DIAGONAL SECUNDÁRIA
+    int linhaD2 = 0;
+    int colunaD2 = 9;
+
+    for (int k = 0; k < tamanhoNavio; k++) {
+        tabuleiro[linhaD2 + k][colunaD2 - k] = 3;
+    }
+
+    //CABEÇALHO DA COLUNA
     printf("   ");
     for (int j = 0; j < 10; j++) {
         printf("%2d", j);
