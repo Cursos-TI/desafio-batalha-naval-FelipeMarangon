@@ -1,61 +1,57 @@
 #include <stdio.h>
 
 int main() {
-    
     char linha[10] = {'A','B','C','D','E','F','G','H','I','J'};
-
-    //TABULEIRO 10 POR 10
     int tabuleiro[10][10];
 
-    //INICIAR COMO 0 AS CASAS
+    //INICIALIZAR NO 0
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             tabuleiro[i][j] = 0;
         }
     }
 
-    //TAMANHO DO NAVIO
-    int tamanhoNavio = 3;
+    //POSIÇÕES ELEMENTOS
+    int cruz_base_linha = 3, cruz_base_col = 2;
+    int oct_base_linha   = 0, oct_base_col   = 5; 
+    int cone_base_linha  = 7, cone_base_col  = 0; 
 
-    //COORDENADAS NAVIO HORIZONTAL
-    int linhaH = 2;  
-    int colunaH = 4; 
-
-    for (int j = 0; j < tamanhoNavio; j++) {
-        tabuleiro[linhaH][colunaH + j] = 3;
+    //CRUZ
+    for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 5; c++) {
+            if (r == 1 || c == 2) {
+                tabuleiro[cruz_base_linha + r][cruz_base_col + c] = 3;
+            }
+        }
     }
 
-    //NAVIO VERTICAL
-    int linhaV = 5;
-    int colunaV = 7;
-
-    for (int i = 0; i < tamanhoNavio; i++) {
-        tabuleiro[linhaV + i][colunaV] = 3;
+    //OCTAEDRO
+    for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 5; c++) {
+            int dr = r - 1; if (dr < 0) dr = -dr;
+            int dc = c - 2; if (dc < 0) dc = -dc;
+            if (dr + dc <= 1) {
+                tabuleiro[oct_base_linha + r][oct_base_col + c] = 3;
+            }
+        }
     }
 
-    //NAVIO DIAGONAL PRINCIPAL 
-    int linhaD1 = 0;
-    int colunaD1 = 0;
-
-    for (int k = 0; k < tamanhoNavio; k++) {
-        tabuleiro[linhaD1 + k][colunaD1 + k] = 3;
+   //CONE
+    for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 5; c++) {
+            int dc = c - 2; if (dc < 0) dc = -dc;
+            if (dc <= r) {
+                tabuleiro[cone_base_linha + r][cone_base_col + c] = 3;
+            }
+        }
     }
 
-    //DIAGONAL SECUNDÁRIA
-    int linhaD2 = 0;
-    int colunaD2 = 9;
-
-    for (int k = 0; k < tamanhoNavio; k++) {
-        tabuleiro[linhaD2 + k][colunaD2 - k] = 3;
-    }
-
-    //CABEÇALHO DA COLUNA
+    //CABEÇALHO COLUNA
     printf("   ");
-    for (int j = 0; j < 10; j++) {
-        printf("%2d", j);
-    }
+    for (int j = 0; j < 10; j++) printf("%2d", j);
     printf("\n");
-    
+
+    //LETRAS TABULEIRO
     for (int i = 0; i < 10; i++) {
         printf("%c ", linha[i]);
         for (int j = 0; j < 10; j++) {
